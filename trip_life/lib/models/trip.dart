@@ -2,7 +2,7 @@ import 'dart:core';
 import 'userTrip.dart';
 
 class Trip {
-  int _id;
+  String _id;
   String _title;
   String _dateBegin;
   String _dateEnd;
@@ -15,24 +15,22 @@ class Trip {
 
   List<UserTrip> get invitedUsers => _invitedUsers;
 
-  String get notes => _notes;
+  Trip.fromJson(Map<String, dynamic> json)
+      : _id = json['id'],
+        _title = json['title'],
+        _dateBegin = json['dateBegin'],
+        _dateEnd = json['dateEnd'],
+        _lieu = json['lieu'],
+        _notes = json['notes'],
+        _invitedUsers = json['invitedUsers'];
 
-  String get lieu => _lieu;
-
-  String get dateEnd => _dateEnd;
-
-  String get dateBegin => _dateBegin;
-
-  String get title => _title;
-
-  int get id => _id;
-
-  void invite(UserTrip _buddy){
-    if(_buddy != null){
-      _invitedUsers.add(_buddy);
-    }
-  }
+  Map<String, dynamic> toJson() => {
+        'id': _id,
+        'title': _title,
+        'dateBegin': _dateBegin,
+        'dateEnd': _dateEnd,
+        'lieu': _lieu,
+        'notes': _notes,
+        'invitedUsers': _invitedUsers
+      };
 }
-
-
-
