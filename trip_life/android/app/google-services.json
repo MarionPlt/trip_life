@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "255973384963",
+    "project_id": "triplife-ced4d",
+    "storage_bucket": "triplife-ced4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255973384963:android:bb6e7498cc6bcd21473f36",
+        "android_client_info": {
+          "package_name": "com.example.trip_life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255973384963-iuc17tcm3eelph1gl0vfd5ltrac2u313.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClAqryX921v2K5ZotvFEgUaalnpzonzr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255973384963-iuc17tcm3eelph1gl0vfd5ltrac2u313.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
