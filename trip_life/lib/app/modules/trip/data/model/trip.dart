@@ -1,5 +1,5 @@
 import 'dart:core';
-import 'userTrip.dart';
+import '../../../traveller/data/model/traveller.dart';
 
 class Trip {
   int _id;
@@ -8,12 +8,12 @@ class Trip {
   String _dateEnd;
   String _lieu;
   String _notes;
-  List<UserTrip> _invitedUsers = [];
+  List<Traveller> _invitedUsers = [];
 
   Trip(this._id, this._title, this._dateBegin, this._dateEnd, this._lieu,
       this._notes);
 
-  List<UserTrip> get invitedUsers => _invitedUsers;
+  List<Traveller> get invitedUsers => _invitedUsers;
 
   String get notes => _notes;
 
@@ -27,7 +27,7 @@ class Trip {
 
   int get id => _id;
 
-  void invite(UserTrip _buddy){
+  void invite(Traveller _buddy){
     if(_buddy != null){
       _invitedUsers.add(_buddy);
     }
