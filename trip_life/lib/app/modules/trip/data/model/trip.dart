@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:trip_life/app/modules/traveller/data/model/traveller.dart';
+import 'package:trip_life/app/modules/traveler/data/model/traveler.dart';
 
 class Trip {
   final String id;
@@ -9,7 +9,7 @@ class Trip {
   String? endDate;
   String? location;
   String? notes;
-  List<Traveller> members = [];
+  List<Traveler> members = [];
 
   Trip(
       {required this.id,
@@ -19,7 +19,7 @@ class Trip {
       this.location,
       this.notes});
 
-  List<Traveller> get invitedUsers => members;
+  List<Traveler> get invitedUsers => members;
 
   Trip.fromJson(String tripId, Map<String, dynamic> json)
       : this(

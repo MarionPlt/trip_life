@@ -4,7 +4,6 @@ class AuthProvider {
   final _firebaseAuth = FirebaseAuth.instance;
 
   Future signIn(String email, String password) async {
-      print("login provider");
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -25,9 +24,9 @@ class AuthProvider {
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw Exception('The password provided is too weak.');
+        throw Exception('Le mot de passe indiqué est trop faible.');
       } else if (e.code == 'email-already-in-use') {
-        throw Exception('The account already exists for that email.');
+        throw Exception('Un compte existe déjà pour ce mail, essayez de vous connecter.');
       }
       rethrow;
     } catch (e) {

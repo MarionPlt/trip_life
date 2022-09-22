@@ -6,7 +6,6 @@ class AuthRepository {
 
 
   login(String email, String password) async {
-      print("login repo");
     await _authProvider.signIn(email, password);
   }
 
