@@ -61,7 +61,7 @@ class SignInScreen extends StatelessWidget {
                     if (email == null || email.isEmpty) {
                       return "Veuillez insérer votre email.";
                     }
-                    if (!isEmailValid(email)) {
+                    if (!Validators.isEmailValid(email)) {
                       return "Format d'email invalide.";
                     }
                     return null;
