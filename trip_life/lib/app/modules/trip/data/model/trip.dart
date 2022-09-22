@@ -1,36 +1,42 @@
 import 'dart:core';
+
 import 'package:trip_life/app/modules/traveller/data/model/traveller.dart';
 
 class Trip {
-  String _id;
-  String _title;
-  String _dateBegin;
-  String _dateEnd;
-  String _lieu;
-  String _notes;
-  List<Traveller> _members = [];
+  final String id;
+  String? title;
+  String? startDate;
+  String? endDate;
+  String? location;
+  String? notes;
+  List<Traveller> members = [];
 
-  Trip(this._id, this._title, this._dateBegin, this._dateEnd, this._lieu,
-      this._notes);
+  Trip(
+      {required this.id,
+      this.title,
+      this.startDate,
+      this.endDate,
+      this.location,
+      this.notes});
 
-  List<Traveller> get invitedUsers => _members;
+  List<Traveller> get invitedUsers => members;
 
-  Trip.fromJson(Map<String, dynamic> json)
-      : _id = json['id'],
-        _title = json['title'],
-        _dateBegin = json['dateBegin'],
-        _dateEnd = json['dateEnd'],
-        _lieu = json['lieu'],
-        _notes = json['notes'],
-        _members = json['members'];
+  Trip.fromJson(String tripId, Map<String, dynamic> json)
+      : this(
+            id: tripId,
+            title: json['title'],
+            startDate: json['startDate'],
+            endDate: json['endDate'],
+            location: json['location'],
+            notes: json['notes']);
 
   Map<String, dynamic> toJson() => {
-        'id': _id,
-        'title': _title,
-        'dateBegin': _dateBegin,
-        'dateEnd': _dateEnd,
-        'lieu': _lieu,
-        'notes': _notes,
-        'members': _members
+        'id': id,
+        'title': title,
+        'startDate': startDate,
+        'endDate': endDate,
+        'location': location,
+        'notes': notes,
+        'members': members
       };
 }
