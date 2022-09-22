@@ -29,6 +29,13 @@
             {
               "client_id": "255973384963-iuc17tcm3eelph1gl0vfd5ltrac2u313.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "255973384963-lhd86a015ue15klfk4ufa1u6pejjemo9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tripLife"
+              }
             }
           ]
         }
