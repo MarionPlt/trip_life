@@ -5,8 +5,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('TripLife')
-    );
+    return const Center(child: Text('TripLife'));
   }
 }

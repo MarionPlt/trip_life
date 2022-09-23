@@ -18,8 +18,8 @@ class SignUpScreen extends StatelessWidget {
 
   _signUp() {
     if (_formKey.currentState!.validate()) {
-      authBloc
-          .add(SignUpRequested(_emailController.text, _passwordController.text));
+      authBloc.add(
+          SignUpRequested(_emailController.text, _passwordController.text));
     }
   }
 
@@ -34,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
           listeners: [
             BlocListener<AuthBloc, AuthState>(listener: (context, state) {
               if (state is Authenticated) {
-                Navigator.pushReplacementNamed(context, splashScreenRoute);
+                Navigator.pushReplacementNamed(context, tripListScreenRoute);
               } else if (state is AuthError) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.error)));

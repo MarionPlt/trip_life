@@ -15,14 +15,18 @@ class FirestoreTripProvider {
 
   Future<List<Trip>> getTrips() async {
     _userId = FirebaseAuth.instance.currentUser?.uid;
-    var tripsCollection = await tripsRef.get();
+
+    var currentUser =
+        FirebaseFirestore.instance.collection("users").doc(_userId);
+
+    var tripsCollection =
+        await tripsRef.where("members", arrayContains: currentUser).get();
+
     var trips = <Trip>[];
 
     for (var doc in tripsCollection.docs) {
       Trip trip = Trip.fromJson(doc.id, doc.data() as Map<String, dynamic>);
-      if (trip.members.contains((t) => t.id == _userId)) {
-        trips.add(trip);
-      }
+      trips.add(trip);
     }
 
     return trips;

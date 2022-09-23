@@ -8,6 +8,8 @@ import 'package:trip_life/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:trip_life/app/screen/auth/sign_in/sign_in_screen.dart';
 import 'package:trip_life/app/screen/splash/splash_screen.dart';
 import 'package:trip_life/core/locator.dart';
+import 'app/modules/trip/bloc/trip_bloc.dart';
+import 'app/screen/trip/trip_list.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   final authBloc = locator<AuthBloc>();
+  final tripBloc = locator<TripBloc>();
 
   // This widget is the root of your application.
   @override
@@ -35,9 +38,10 @@ class MyApp extends StatelessWidget {
         ),
         routes: routes,
         builder: (_, widget) {
-          return MultiBlocProvider(
-              providers: [BlocProvider<AuthBloc>(create: (_) => authBloc)],
-              child: widget ?? Container());
+          return MultiBlocProvider(providers: [
+            BlocProvider<AuthBloc>(create: (_) => authBloc),
+            BlocProvider<TripBloc>(create: (_) => tripBloc)
+          ], child: widget ?? Container());
         },
         home: FutureBuilder<User?>(
             future: FirebaseAuth.instance.authStateChanges().first,
@@ -45,7 +49,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   //home
-                  return const SplashScreen();
+                  return TripListScreen();
                 }
                 //login
                 return SignInScreen();

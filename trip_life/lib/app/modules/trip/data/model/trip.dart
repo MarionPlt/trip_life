@@ -1,12 +1,13 @@
 import 'dart:core';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trip_life/app/modules/traveller/data/model/traveller.dart';
 
 class Trip {
   final String id;
   String? title;
-  String? startDate;
-  String? endDate;
+  Timestamp? startDate;
+  Timestamp? endDate;
   String? location;
   String? notes;
   List<Traveller> members = [];
@@ -36,7 +37,6 @@ class Trip {
         'startDate': startDate,
         'endDate': endDate,
         'location': location,
-        'notes': notes,
-        'members': members
+        'notes': notes
       };
 }

@@ -1,7 +1,7 @@
 class Traveller {
-  int _id;
-  String _name;
-  String _mail;
+  final int _id;
+  final String _name;
+  final String _mail;
 
   Traveller(this._id, this._name, this._mail);
 
