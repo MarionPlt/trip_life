@@ -33,7 +33,7 @@ class FirestoreTripProvider {
   }
 
   Future updateTrip(Trip trip) async {
-    await tripsRef.doc().update(trip.toJson());
+    await tripsRef.doc(trip.id).update(trip.toJson());
   }
 
   Future deleteTrip(Trip trip) async {

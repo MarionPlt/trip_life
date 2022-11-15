@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -11,6 +10,7 @@ class TripListScreen extends StatelessWidget {
   TripListScreen({Key? key}) : super(key: key);
 
   final TripBloc tripBloc = locator<TripBloc>();
+  final AuthBloc authBloc = locator<AuthBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,9 @@ class TripListScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-            appBar: AppBar(title: const Text("Liste de voyages")),
+            appBar: AppBar(title: const Text("Liste de voyages"), actions: [
+              IconButton(onPressed: () { authBloc.add(SignOutRequested()); }, icon: const Icon(Icons.logout))
+            ],),
             body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
               if (state is TripListSuccessState) {
                 if (state.trips.isNotEmpty) {

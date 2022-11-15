@@ -5,12 +5,12 @@ class AuthRepository {
   final AuthProvider _authProvider = AuthProvider();
 
 
-  login(String email, String password) async {
-    await _authProvider.signIn(email, password);
+  Future<UserCredential> login(String email, String password) async {
+    return await _authProvider.signIn(email, password);
   }
 
-  register({required String email, required String password}) async {
-    await _authProvider.signUp(email: email, password: password);
+  Future<UserCredential> register({required String email, required String password}) async {
+    return await _authProvider.signUp(email: email, password: password);
   }
 
   disconnect() async {

@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthProvider {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future signIn(String email, String password) async {
+  Future<UserCredential> signIn(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      return await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {

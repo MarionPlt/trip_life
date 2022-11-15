@@ -3,6 +3,11 @@ part of 'traveler_bloc.dart';
 @immutable
 abstract class TravelerState extends Equatable {}
 
+class TravelerInitialState extends TravelerState {
+  @override
+  List<Object?> get props => [];
+}
+
 class TravelerLoading extends TravelerState {
   @override
   List<Object?> get props => [];

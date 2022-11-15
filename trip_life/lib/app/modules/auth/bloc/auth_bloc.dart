@@ -2,20 +2,25 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trip_life/app/modules/auth/data/repository/auth_repository.dart';
+import 'package:trip_life/app/modules/traveler/data/model/traveler.dart';
+import 'package:trip_life/app/modules/traveler/data/repository/traveler_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository = AuthRepository();
+  final TravelerRepository travelerRepository = TravelerRepository();
 
   AuthBloc() : super(UnAuthenticated()) {
     
     on<SignInRequested>((event, emit) async {
       emit(Loading());
       try {
-        await authRepository.login(event.email, event.password);
-        emit(Authenticated());
+        var connectedUser = await authRepository.login(event.email, event.password);
+        var userId = connectedUser.user!.uid;
+        var connectedTraveler = await travelerRepository.get(userId);
+        emit(Authenticated(userId, connectedUser.user?.email, connectedTraveler));
       } catch (e) {
         emit(AuthError(e.toString()));
         emit(UnAuthenticated());
@@ -25,9 +30,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpRequested>((event, emit) async {
       emit(Loading());
       try {
-        await authRepository.register(
+        var connectedUser = await authRepository.register(
             email: event.email, password: event.password);
-        emit(Authenticated());
+        emit(Authenticated(connectedUser.user!.uid, connectedUser.user?.email, null));
       } catch (e) {
         emit(AuthError(e.toString()));
         emit(UnAuthenticated());

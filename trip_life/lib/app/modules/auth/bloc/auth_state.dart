@@ -9,10 +9,17 @@ class Loading extends AuthState {
 }
 
 class Authenticated extends AuthState {
+  final String userId;
+  final String? email;
+  final Traveler? connectedTraveler;
+
+  Authenticated(this.userId, this.email, this.connectedTraveler);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [connectedTraveler];
 }
 
+ 
 class ResetPasswordMailSent extends AuthState {
   @override
   List<Object?> get props => [];

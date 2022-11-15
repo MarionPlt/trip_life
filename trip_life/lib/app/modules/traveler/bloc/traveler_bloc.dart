@@ -7,5 +7,5 @@ part 'traveler_event.dart';
 part 'traveler_state.dart';
 
 class TravelerBloc extends Bloc<TravelerEvent, TravelerState> {
-  TravelerBloc(super.initialState);
+  TravelerBloc(): super(TravelerInitialState());
 }

@@ -5,17 +5,18 @@ abstract class TravelerEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CreateTraveler extends TravelerEvent {
-  final String docId;
+class CreateTravelerEvent extends TravelerEvent {
+  final String userId;
   final String name;
   final String email;
 
-  CreateTraveler(this.docId, this.name, this.email);
+  CreateTravelerEvent(this.userId, this.name, this.email);
 }
 
-class UpdateTraveler extends TravelerEvent {
+class UpdateTravelerEvent extends TravelerEvent {
   final String name;
   final String email;
 
-  UpdateTraveler(this.name, this.email);
+  UpdateTravelerEvent(this.name, this.email);
 }
+
