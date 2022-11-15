@@ -13,14 +13,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final TravelerRepository travelerRepository = TravelerRepository();
 
   AuthBloc() : super(UnAuthenticated()) {
-    
     on<SignInRequested>((event, emit) async {
       emit(Loading());
       try {
-        var connectedUser = await authRepository.login(event.email, event.password);
+        var connectedUser =
+            await authRepository.login(event.email, event.password);
         var userId = connectedUser.user!.uid;
         var connectedTraveler = await travelerRepository.get(userId);
-        emit(Authenticated(userId, connectedUser.user?.email, connectedTraveler));
+        emit(Authenticated(
+            userId, connectedUser.user?.email, connectedTraveler));
       } catch (e) {
         emit(AuthError(e.toString()));
         emit(UnAuthenticated());
@@ -32,7 +33,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         var connectedUser = await authRepository.register(
             email: event.email, password: event.password);
-        emit(Authenticated(connectedUser.user!.uid, connectedUser.user?.email, null));
+        emit(Authenticated(
+            connectedUser.user!.uid, connectedUser.user?.email, null));
       } catch (e) {
         emit(AuthError(e.toString()));
         emit(UnAuthenticated());
@@ -54,5 +56,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(e.toString()));
       }
     });
+
+    on<UpdateUserTraveler>(((event, emit) async {
+      var connectedUser = authRepository.getCurrentUser();
+      var userId = connectedUser!.uid;
+      emit(Authenticated(userId, connectedUser.email!, event.traveler));
+    }));
   }
 }

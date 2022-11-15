@@ -26,3 +26,9 @@ class ResetPasswordRequested extends AuthEvent{
 
   ResetPasswordRequested(this.email);
 }
+
+class UpdateUserTraveler extends AuthEvent {
+  final Traveler traveler;
+
+  UpdateUserTraveler(this.traveler);
+}

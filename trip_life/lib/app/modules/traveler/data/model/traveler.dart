@@ -1,13 +1,13 @@
 class Traveler {
   final String id;
-  final String _name;
-  final String _mail;
+  final String name;
+  final String mail;
 
-  Traveler(this.id, this._name, this._mail);
+  Traveler(this.id, this.name, this.mail);
 
   Traveler.fromJson(this.id, Map<String, dynamic> json)
-      : _name = json['name'],
-        _mail = json['mail'];
+      : name = json['name'],
+        mail = json['mail'];
 
-  Map<String, dynamic> toJson() => {'name': _name, 'mail': _mail};
+  Map<String, dynamic> toJson() => {'name': name, 'mail': mail};
 }

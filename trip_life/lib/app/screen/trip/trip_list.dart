@@ -26,8 +26,7 @@ class TripListScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   icon: const Icon(
-                    Icons.person,
-                    color: Colors.black,
+                    Icons.person
                   ),
                   onPressed: () => Navigator.pushReplacementNamed(
                       context, profileScreenRoute),
