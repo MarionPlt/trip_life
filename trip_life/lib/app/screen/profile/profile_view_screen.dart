@@ -26,7 +26,6 @@ class ProfileViewScreen extends StatelessWidget {
                 )),
             body: BlocBuilder<AuthBloc, AuthState>(
                 builder: ((context, state) {
-                  print(state);
               if (state is Authenticated) {
                 return Center(
                   child: Column(
