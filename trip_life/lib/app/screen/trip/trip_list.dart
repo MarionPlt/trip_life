@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -21,7 +20,28 @@ class TripListScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-            appBar: AppBar(title: const Text("Liste de voyages")),
+            appBar: AppBar(
+              title: const Text("Liste de voyages"),
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                  ),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                      context, profileScreenRoute),
+                ),
+              ],
+            ),
             body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
               if (state is TripListSuccessState) {
                 if (state.trips.isNotEmpty) {
