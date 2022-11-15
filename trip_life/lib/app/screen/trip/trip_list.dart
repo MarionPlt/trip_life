@@ -21,9 +21,24 @@ class TripListScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-            appBar: AppBar(title: const Text("Liste de voyages"), actions: [
-              IconButton(onPressed: () { authBloc.add(SignOutRequested()); }, icon: const Icon(Icons.logout))
-            ],),
+            appBar: AppBar(
+              title: const Text("Liste de voyages"),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                  ),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                      context, profileScreenRoute),
+                ),
+                IconButton(
+                    onPressed: () {
+                      authBloc.add(SignOutRequested());
+                    },
+                    icon: const Icon(Icons.logout))
+              ],
+            ),
             body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
               if (state is TripListSuccessState) {
                 if (state.trips.isNotEmpty) {
