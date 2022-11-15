@@ -22,15 +22,6 @@ class TripListScreen extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(
               title: const Text("Liste de voyages"),
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               actions: [
                 IconButton(
                   icon: const Icon(
