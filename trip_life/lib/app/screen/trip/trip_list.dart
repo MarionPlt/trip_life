@@ -21,74 +21,71 @@ class TripListScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Liste de voyages"),
-              actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.person
-                  ),
-                  onPressed: () => Navigator.pushReplacementNamed(
-                      context, profileScreenRoute),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.add_circle,
-                  ),
-                  onPressed: () => Navigator.pushReplacementNamed(
-                      context, createTripScreenRoute),
-                ),
-                IconButton(
-                    onPressed: () {
-                      authBloc.add(SignOutRequested());
-                    },
-                    icon: const Icon(Icons.logout)),
-              ],
-            ),
-            body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
-              if (state is TripListSuccessState) {
-                if (state.trips.isNotEmpty) {
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: state.trips.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                            child: Container(
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(state.trips[index].title ?? "",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "Lieu: ${state.trips[index].location}",
+          appBar: AppBar(
+            title: const Text("Liste de voyages"),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.person),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, profileScreenRoute),
+              ),
+              IconButton(
+                  onPressed: () {
+                    authBloc.add(SignOutRequested());
+                  },
+                  icon: const Icon(Icons.logout)),
+            ],
+          ),
+          body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
+            if (state is TripListSuccessState) {
+              if (state.trips.isNotEmpty) {
+                return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.trips.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(state.trips[index].title ?? "",
                                   textAlign: TextAlign.left,
-                                )
-                              ]),
-                        ));
-                      });
-                } else {
-                  return Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [Text("Aucun voyage enregistré.")],
-                  ));
-                }
-              } else if (state is TripErrorState) {
-                return const Text("Erreur lors du chargement des voyages.");
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
+                              const SizedBox(height: 8),
+                              Text(
+                                "Lieu: ${state.trips[index].location}",
+                                textAlign: TextAlign.left,
+                              )
+                            ]),
+                      ));
+                    });
+              } else {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [Text("Aucun voyage enregistré.")],
+                ));
               }
-              tripBloc.add(GetAllTripsEvent());
-              return Center(
-                  child: SizedBox(
-                      height: 10.h,
-                      width: 10.h,
-                      child: const CircularProgressIndicator()));
-            })));
+            } else if (state is TripErrorState) {
+              return const Text("Erreur lors du chargement des voyages.");
+            }
+            tripBloc.add(GetAllTripsEvent());
+            return Center(
+                child: SizedBox(
+                    height: 10.h,
+                    width: 10.h,
+                    child: const CircularProgressIndicator()));
+          }),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, createTripScreenRoute),
+            child: const Icon(Icons.add),
+          ),
+        ));
   }
 }

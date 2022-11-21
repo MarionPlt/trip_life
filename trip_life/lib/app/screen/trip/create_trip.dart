@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trip_life/app/app_routes.dart';
 import 'package:trip_life/app/modules/auth/bloc/auth_bloc.dart';
@@ -14,11 +16,21 @@ class CreateTripScreen extends StatelessWidget {
   final _titleController = TextEditingController();
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
+
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   _createTrip() {
     if (_formKey.currentState!.validate()) {
-      tripBloc.add(CreateTripEvent(_titleController.text,
-          _locationController.text, null, null, _notesController.text));
+      final startDate = DateTime.parse(_startDateController.text);
+      final endDate = DateTime.parse(_endDateController.text);
+      tripBloc.add(CreateTripEvent(
+          _titleController.text,
+          _locationController.text,
+          Timestamp.fromDate(startDate),
+          Timestamp.fromDate(endDate),
+          _notesController.text));
     }
   }
 
@@ -47,6 +59,7 @@ class CreateTripScreen extends StatelessWidget {
                   }),
                   BlocListener<TripBloc, TripState>(listener: (context, state) {
                     if (state is TripCreatedState) {
+                      tripBloc.add(GetAllTripsEvent());
                       Navigator.pushReplacementNamed(
                           context, tripListScreenRoute);
                     }
@@ -76,6 +89,66 @@ class CreateTripScreen extends StatelessWidget {
                                 controller: _locationController,
                               ),
                               TextFormField(
+                                controller: _startDateController,
+                                decoration: const InputDecoration(
+                                    icon: Icon(Icons.calendar_today),
+                                    labelText: "Date de début"),
+                                onTap: () async {
+                                  DateTime? date = DateTime(1900);
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+
+                                  date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime(2100));
+
+                                  if (date != null) {
+                                    _startDateController.text =
+                                        formatter.format(date);
+                                  }
+                                },
+                                readOnly: true,
+                              ),
+                              TextFormField(
+                                controller: _endDateController,
+                                decoration: const InputDecoration(
+                                    icon: Icon(Icons.calendar_today),
+                                    labelText: "Date de fin"),
+                                onTap: () async {
+                                  DateTime? date = DateTime(1900);
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+
+                                  date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime(2100));
+
+                                  if (date != null) {
+                                    _endDateController.text =
+                                        formatter.format(date);
+                                  }
+                                },
+                                readOnly: true,
+                                validator: (value) {
+                                  if (value != null) {
+                                    var endDate = DateTime.parse(value);
+                                    var startDate = DateTime.parse(
+                                        _startDateController.text);
+                                    if (endDate.isBefore(startDate)) {
+                                      return "La date de fin doit être supérieur à la date de début.";
+                                    }
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                keyboardType: TextInputType.multiline,
+                                minLines: 1,
+                                maxLines: 20,
                                 decoration:
                                     const InputDecoration(labelText: 'Notes'),
                                 controller: _notesController,

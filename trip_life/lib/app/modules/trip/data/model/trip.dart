@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trip_life/app/modules/traveler/data/model/traveler.dart';
 
 class Trip {
-  final String id;
+  String? id;
   String? title;
   Timestamp? startDate;
   Timestamp? endDate;
@@ -13,7 +13,7 @@ class Trip {
   List<Traveler> members = [];
 
   Trip(
-      {required this.id,
+      {this.id,
       this.title,
       this.startDate,
       this.endDate,
@@ -32,7 +32,6 @@ class Trip {
             notes: json['notes']);
 
   Map<String, dynamic> toJson() => {
-        'id': id,
         'title': title,
         'startDate': startDate,
         'endDate': endDate,

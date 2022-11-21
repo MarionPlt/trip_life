@@ -23,7 +23,6 @@ class TripBloc extends Bloc<TripEvent, TripState> {
       emit(TripLoadingState());
       try {
         Trip newTrip = Trip(
-            id: '',
             title: event.title,
             startDate: event.startDate,
             endDate: event.endDate,
