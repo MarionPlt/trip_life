@@ -6,9 +6,14 @@ abstract class TripEvent extends Equatable {
 }
 
 class CreateTripEvent extends TripEvent {
-  final Trip trip;
+  final String title;
+  final String? location;
+  final Timestamp? startDate;
+  final Timestamp? endDate;
+  final String? notes;
 
-  CreateTripEvent(this.trip);
+  CreateTripEvent(
+      this.title, this.location, this.startDate, this.endDate, this.notes);
 }
 
 class UpdateTripEvent extends TripEvent {

@@ -33,10 +33,17 @@ class TripListScreen extends StatelessWidget {
                       context, profileScreenRoute),
                 ),
                 IconButton(
+                  icon: const Icon(
+                    Icons.add_circle,
+                  ),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                      context, createTripScreenRoute),
+                ),
+                IconButton(
                     onPressed: () {
                       authBloc.add(SignOutRequested());
                     },
-                    icon: const Icon(Icons.logout))
+                    icon: const Icon(Icons.logout)),
               ],
             ),
             body: BlocBuilder<TripBloc, TripState>(builder: (context, state) {
