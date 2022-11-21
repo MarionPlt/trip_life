@@ -18,5 +18,5 @@ void main() {
     final emailInvalid = "<>test@test.fr";
     final emailValidation = Validators.isEmailValid(emailInvalid);
     expect(emailValidation, false);
-  });;
+  });
 }
