@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:trip_life/app/app_routes.dart';
 import 'package:trip_life/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:trip_life/app/modules/form/email_validation.dart';
+import 'package:trip_life/app/screen/traveler/create_traveler_screen.dart';
 import 'package:trip_life/core/locator.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -31,29 +32,39 @@ class SignUpScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(35),
           child: SingleChildScrollView(
-              child: MultiBlocListener(
-            listeners: [
-              BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-                if (state is Authenticated) {
+              child: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is Authenticated) {
+                if (state.connectedTraveler != null) {
                   Navigator.pushReplacementNamed(context, tripListScreenRoute);
-                } else if (state is AuthError) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(state.error)));
+                } else {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              CreateTravelerScreen(state.userId, state.email)));
                 }
-              })
-            ],
+              } else if (state is AuthError) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.error)));
+              }
+            },
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                    SvgPicture.asset(
-                      'sign_in.svg',
-                      height: 30.h,
-                    ),
-                    SizedBox(height: 7.h),
-                    Text("Inscription", textAlign: TextAlign.left, style: TextStyle(fontSize: 3.h),),
+                  SvgPicture.asset(
+                    'sign_in.svg',
+                    height: 30.h,
+                  ),
+                  SizedBox(height: 7.h),
+                  Text(
+                    "Inscription",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 3.h),
+                  ),
                   TextFormField(
                     decoration: const InputDecoration(
                         labelText: 'Email',

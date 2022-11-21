@@ -5,12 +5,8 @@ class FirestoreTravelerProvider {
   final CollectionReference travelersRef =
       FirebaseFirestore.instance.collection("users");
 
-  Future addTraveler(Traveler traveler) async {
-    return travelersRef.add(traveler.toJson());
-  }
-
-  Future updateTraveler(Traveler traveler) async {
-    await travelersRef.doc(traveler.id).update(traveler.toJson());
+  Future upsertTraveler(Traveler traveler) async {
+    return travelersRef.doc(traveler.id).set(traveler.toJson());
   }
 
   Future<Traveler?> getTraveler(String travelerId) async {

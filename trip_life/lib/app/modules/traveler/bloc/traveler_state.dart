@@ -8,25 +8,34 @@ class TravelerInitialState extends TravelerState {
   List<Object?> get props => [];
 }
 
-class TravelerLoading extends TravelerState {
+class TravelerLoadingState extends TravelerState {
   @override
   List<Object?> get props => [];
 }
 
-class TravelerCreated extends TravelerState {
+class TravelerCreatedState extends TravelerState {
   final Traveler traveler; 
 
-  TravelerCreated(this.traveler);
+  TravelerCreatedState(this.traveler);
 
   @override
   List<Object?> get props => [];
 }
 
-class TravelerLoaded extends TravelerState {
+class TravelerLoadedState extends TravelerState {
   final Traveler traveler; 
 
-  TravelerLoaded(this.traveler);
+  TravelerLoadedState(this.traveler);
 
   @override
   List<Object?> get props => [];
 }
+
+class TravelerErrorState extends TravelerState {
+  final String error;
+
+  TravelerErrorState(this.error);
+
+  @override
+  List<Object?> get props => [error];
+} 

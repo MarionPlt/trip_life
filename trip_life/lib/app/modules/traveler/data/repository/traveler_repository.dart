@@ -4,13 +4,9 @@ import 'package:trip_life/app/modules/traveler/data/provider/traveler_provider.d
 
 class TravelerRepository {
   final FirestoreTravelerProvider _provider = FirestoreTravelerProvider();
-
-  add(Traveler traveler) async {
-    await _provider.addTraveler(traveler);
-  }
-
-  update(Traveler traveler) async {
-    await _provider.updateTraveler(traveler);
+  
+  upsert(Traveler traveler) async {
+    await _provider.upsertTraveler(traveler);
   }
 
   Future<Traveler?> get(String travelerId) async {

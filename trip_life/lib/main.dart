@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trip_life/app/app_routes.dart';
 import 'package:trip_life/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:trip_life/app/modules/traveler/bloc/traveler_bloc.dart';
 import 'package:trip_life/app/screen/auth/sign_in/sign_in_screen.dart';
 import 'package:trip_life/app/screen/splash/splash_screen.dart';
 import 'package:trip_life/core/locator.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
 
   final authBloc = locator<AuthBloc>();
   final tripBloc = locator<TripBloc>();
+  final travelerBloc = locator<TravelerBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class MyApp extends StatelessWidget {
         builder: (_, widget) {
           return MultiBlocProvider(providers: [
             BlocProvider<AuthBloc>(create: (_) => authBloc),
-            BlocProvider<TripBloc>(create: (_) => tripBloc)
+            BlocProvider<TripBloc>(create: (_) => tripBloc),
+            BlocProvider<TravelerBloc>(create: (_) => travelerBloc)
           ], child: widget ?? Container());
         },
         home: FutureBuilder<User?>(
